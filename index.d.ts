@@ -1,3 +1,24 @@
+const { Client, LocalAuth } = require('whatsapp-web.js');
+const qrcode = require('qrcode-terminal');
+
+// Configuração do cliente WhatsApp
+const client = new Client({
+    authStrategy: new LocalAuth(),
+});
+
+// Exibe o QR Code para login
+client.on('qr', (qr) => {
+    console.log('Escaneie este QR Code para conectar ao WhatsApp:');
+    qrcode.generate(qr, { small: true });
+});
+
+// Confirma conexão
+client.on('ready', () => {
+    console.log('WhatsApp conectado!');
+});
+
+// Inicializa o cliente
+client.initialize();
 
 import { EventEmitter } from 'events'
 import { RequestInit } from 'node-fetch'
